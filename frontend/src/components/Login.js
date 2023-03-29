@@ -4,17 +4,15 @@ import axios from "axios";
 import ErrorMessage from "./ErrorMessage";
 import Loading from "./Loading";
 import { useNavigate, Link } from "react-router-dom";
+import { Button, Form } from "react-bootstrap";
 
 
 export const Login = () => {
 
-    //const userRef = useRef(); sets focus on first imput when component loads
-    //const errRef = useRef(); sets focus on err mostly for assistive tech/screen reader
-
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [error, setError] = useState(false); //remove, replaced with react router to navigate to pg of our choice if authentication ins successful
+    const [error, setError] = useState(false); 
     const [loading, setLoading] = useState(false);
     //const [success, setSuccess] = useState('') //corresponds to error message that we might get when you try to authenticate
 
@@ -74,12 +72,8 @@ export const Login = () => {
         e.preventDefault();
         console.warn( email, password); 
         setLoading(true)
-   try {    
-           /* const {
-                userLogin: {user},
-   } = getState() */
-    
-            let result = await fetch("http://localhost:5000/api/users/login", {
+   try {        
+        let result = await fetch("http://localhost:5000/api/users/login", {
             method: "POST",
             body: JSON.stringify({email, password}),
             headers: {
@@ -98,26 +92,18 @@ export const Login = () => {
 } catch (error) {
         setError(error.response.data.message);
     }
-    setLoading(false)
-        
-    
-    } 
-
-
-  
+    setLoading(false)    
+} 
 
     return (
         <>
-      
-            
-        <div className="Auth-form-container ccontainer min-vh-100 d-flex align-items-center justify-content-center">
-        <div className="Auth-form container">
+            <div className="Auth-form-container container min-vh-100 d-flex align-items-center justify-content-center">
             <div className="Auth-form-content col-8 col-md-7 col-lg-4 h-100 auth-background-col mx-auto ">
-                <h2>Sign in</h2>
+                <h2>Nice to see you again</h2>
                 <div className="auth-form-container text-start mt-4">
                    {error && <ErrorMessage variant="danger">{error}</ErrorMessage>}
                    {loading && <Loading />}
-                    <form onSubmit={submitHandler}
+                    <Form onSubmit={submitHandler}
                         className="auth-fomr"
                         method="POST"
                         //onSubmit={authenticate}
@@ -135,40 +121,20 @@ export const Login = () => {
                                 onChange={(e) => setEmail(e.target.value)}
                                 required
                             />
-                            <div className="invalid-feedback">
-
-                            </div>
                         </div>
                         <div className="password">
-                            
-                                <label className="password-header">Password</label><br/>
-                                <input
-                                    type="password"
-                                    className="form-control"
-                                    id="password"
-                                    name="password"
-                                    value={password}
-                                    placeholder="password"
-                                    onChange={(e) => setPassword(e.target.value)}
-                                />
-                                <button
-                                    type="button"
-                                    className="btn btn-outline-primary btn-sm"
-                                    //onClick={(e) => togglePassword(e)}
-                                >
-                                    <i
-                                        //className={showPassword ? "far fa-eye" : "far fa-eye-slash"}
-                                    ></i>{" "}
-                                </button>
-
-                                <div className="invalid-feedback">
-
-                                </div>
-                            
-
+                            <label className="password-header">Password</label><br/>
+                            <input 
+                                type="password"
+                                className="form-control"
+                                id="password"
+                                name="password"
+                                value={password}
+                                placeholder="password"
+                                onChange={(e) => setPassword(e.target.value)}
+                            />                           
                             <div className="form-check forgot-password-section">
-                                <div className="remember checkbox">
-                                </div>
+                                <div className="remember checkbox" />
                             </div>
 
                             <div classname="form-check p-0 ">
@@ -178,35 +144,23 @@ export const Login = () => {
                                 value="" 
                                 id="flexCheckDefault" 
                                 /> {" "}
-                                <label class="form-check-label" for="flexCheckDefault">
-                                     Remember me
-                                </label>
+                            <label class="form-check-label" for="flexCheckDefault">Remember me</label>
                             </div>
 
                             <div className="forgot-password-option p-0 mb-3">
                                 Forgot{" "}
-                            <span class name="line" //onClick={changeAuthMode}
-                            >
-                            {/*router link here; a href below will be replaced by this */}
-                            <a href="#">Password?</a> 
-                            </span>
-                        
+                                <span class name="line"><Link to ="#">Password?</Link></span>
                             </div>
-
-    
                         </div>
                         <div className="text-center">
-                            <button 
-                                type="submit"
-                                
-                                className="btn btn-primary w-100 theme-btn mx-auto"
-                                //onClick={handleLogin}
+                            <Button 
+                            type="submit"
+                            className="btn btn-primary w-100 theme-btn mx-auto"
                             >
-                                Sign In
-                            </button>
+                            Sign In
+                            </Button>
                         </div>
-                    </form>
-
+                    </Form>
                     <hr />
                     <div className="auth-option text-center">
                         Don't have an account?{" "}
@@ -221,7 +175,7 @@ export const Login = () => {
             
            
         </div>
-        </div>
+       
         
         </>
 

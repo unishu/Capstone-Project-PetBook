@@ -23,7 +23,7 @@ const getRecord = asyncHandler(
         //console.log({petId: req.pet._id})
 
         if (recordExists) {
-        res.status(400).send({result:"Record already exists"}) 
+        res.status(400).send({error:"Record already exists"}) 
         //throw new Error("User already exists");
             
       
@@ -48,7 +48,7 @@ const getRecord = asyncHandler(
                 if (record) {
                     res.json(record);
                 }else {
-                    res.status(404).send({message: "record not found"});
+                    res.status(404).send({error: "Record not found"});
         }
     }
 
@@ -75,10 +75,6 @@ const getRecord = asyncHandler(
     
 */
 
-
-
- 
-    
     const updateRecord = asyncHandler( async (req, res) => {
         const {petName, vet, healthConcerns, vaccinations, recordImage} = req.body;
 
