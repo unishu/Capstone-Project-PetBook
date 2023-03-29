@@ -6,9 +6,8 @@ WORKDIR /app
 COPY package.json .
 
 RUN npm install
-RUN npm start
-
-COPY . .
+RUN npm install serve --location=global
+RUN npm run build
 
 EXPOSE 5000
 
